@@ -1,0 +1,16 @@
+target: mGPT.archs.mgpt_vq.VQVae
+params:
+  vae_args_body:
+    code_num: 256
+    code_dim: 1024
+    output_emb_width: 1024
+    down_t: 2
+    stride_t: 2
+    width: 512
+    depth: 3
+    dilation_growth_rate: 3
+  vae_args_hand:
+    code_num: 512
+    code_dim: 1024
+  win_size: 64
+  nfeats: ${DATASET.NFEATS}

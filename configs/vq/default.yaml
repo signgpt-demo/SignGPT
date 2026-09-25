@@ -1,0 +1,33 @@
+target: mGPT.archs.mgpt_vq.SplitBodyHandVQVAE
+params:
+  full_feature_dim: 230
+  body_hand_feature_dim: 220
+  root_dim: 4
+  num_joints: 73
+  vae_args_body:
+    code_num: 128
+    code_dim: 1024
+    output_emb_width: 1024
+    down_t: 1
+    stride_t: 2
+    width: 512
+    depth: 3
+    dilation_growth_rate: 3
+  vae_args_hand:
+    code_num: 512
+    code_dim: 1024
+    output_emb_width: 1024
+    down_t: 1
+    stride_t: 2
+    width: 512
+    depth: 3
+    dilation_growth_rate: 3
+  win_size: 64
+  hier_inject: body2hand
+  use_my_encdec: true
+  use_mlp: false
+  share_proj: false
+  use_gloss: false
+  gloss_loss: false
+  nfeats: ${DATASET.NFEATS}
+  ablation: ${ABLATION}

@@ -1,0 +1,25 @@
+# Install a CUDA-compatible PyTorch build separately when GPU support is needed.
+torch>=2.0
+pytorch-lightning>=2.0,<3
+torchmetrics>=1.0
+
+numpy>=1.23
+scipy>=1.9
+scikit-learn>=1.2
+opencv-python-headless>=4.7
+fastdtw>=0.3.4
+
+omegaconf>=2.3
+transformers>=4.40
+sentencepiece>=0.1.99
+accelerate>=0.27
+peft>=0.10
+
+spacy>=3.6
+jiwer>=3.0
+portalocker>=2.8
+
+matplotlib>=3.7
+pillow>=9.5
+rich>=13
+tqdm>=4.65

@@ -1,0 +1,71 @@
+NAME: SignGPT_stage1_phvq
+ACCELERATOR: gpu
+NUM_NODES: 1
+DEVICE: [0]
+
+TRAIN:
+  SPLIT: train_all
+  STAGE: vae
+  NUM_WORKERS: 32
+  BATCH_SIZE: 128
+  END_EPOCH: 200
+  RESUME: ''
+  PRETRAINED: null
+  PRETRAINED_VAE: null
+  OPTIM:
+    target: AdamW
+    params:
+      lr: 1e-4
+      betas: [0.9, 0.99]
+      weight_decay: 0.0
+  LR_SCHEDULER:
+    target: CosineAnnealingLR
+    params:
+      T_max: 200
+      eta_min: 1e-6
+
+EVAL:
+  SPLIT: test
+  BATCH_SIZE: 32
+
+TEST:
+  CHECKPOINTS: null
+  SPLIT: test
+  BATCH_SIZE: 32
+
+DATASET:
+  target: mGPT.data.HumanML3D.HumanML3DDataModule
+
+METRIC:
+  TYPE: [MRMetrics]
+
+LOSS:
+  LAMBDA_FEATURE: 1
+  LAMBDA_FEATURE_HAND: 2
+  LAMBDA_FEATURE_BODY: 0.5
+  LAMBDA_LOCATION_HAND: 2
+  LAMBDA_LOCATION_BODY: 0.5
+  LAMBDA_POS: 100
+  LAMBDA_COMMIT: 0.02
+  LAMBDA_ACC: 0
+  LAMBDA_ANGLE: 0.1
+  LAMBDA_SEMANTIC: 0
+  LAMBDA_EXPRESSION: 0.02
+  LAMBDA_CLS: 1.0
+  ABLATION:
+    RECONS_LOSS: l1_smooth
+
+model:
+  target: mGPT.models.mgpt.SignGPT
+  params:
+    condition: text
+    task: t2m
+    lm: ${lm.default}
+    motion_vae: ${vq.default}
+
+LOGGER:
+  TYPE: []
+  VAL_EVERY_STEPS: 100
+  WANDB:
+    params:
+      project: signgpt

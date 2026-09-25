@@ -1,0 +1,24 @@
+CONFIG_FOLDER: configs
+FOLDER: experiments
+
+TEST:
+  FOLDER: results
+
+DATASET:
+  SMPL_PATH: ${oc.env:SMPL_PATH,./deps/smpl_models/smpl}
+  TRANSFORM_PATH: ${oc.env:TRANSFORM_PATH,./deps/transforms}
+  WORD_VERTILIZER_PATH: ${oc.env:WORD_VERTILIZER_PATH,./deps/glove}
+  How2Sign:
+    ROOT: ${oc.env:SIGNGPT_DATA_ROOT,./data/how2sign}
+    SPLIT_ROOT: ${oc.env:SIGNGPT_DATA_ROOT,./data/how2sign}
+    MEAN_STD_PATH: ${oc.env:SIGNGPT_STATS_ROOT,./deps/ASL}
+  HUMANML3D:
+    ROOT: ${oc.env:SIGNGPT_DATA_ROOT,./data/how2sign}
+    SPLIT_ROOT: ${oc.env:SIGNGPT_DATA_ROOT,./data/how2sign}
+    MEAN_STD_PATH: ${oc.env:SIGNGPT_STATS_ROOT,./deps/ASL}
+
+RENDER:
+  BLENDER_PATH: ${oc.env:BLENDER_PATH,blender}
+  SMPL_MODEL_PATH: ${oc.env:SMPL_MODEL_PATH,./deps/smpl_models/smpl}
+  MODEL_PATH: ${oc.env:MODEL_PATH,./deps/smpl_models}
+  FACES_PATH: ${oc.env:FACES_PATH,./deps/smpl_models/smplh/smplh.faces}

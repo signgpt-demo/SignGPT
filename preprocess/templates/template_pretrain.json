@@ -1,0 +1,25 @@
+{
+    "Text-to-Motion": {
+        "t2m": {
+            "class": "t2m",
+            "input": [
+                "<Caption_Placeholder>\n"
+            ],
+            "output": [
+                "<Motion_Placeholder>"
+            ]
+        }
+    },
+    "Motion-to-Text": {
+        "m2t": {
+            "class": "m2t",
+            "input": [
+                "<Motion_Placeholder>\n"
+            ],
+            "output": [
+                "<Caption_Placeholder>"
+            ] 
+        }
+    }
+}
+ 

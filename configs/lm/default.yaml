@@ -1,0 +1,25 @@
+target: mGPT.archs.mgpt_lm.MLM
+params:
+  model_type: llama
+  model_path: ${oc.env:SIGNGPT_LLM_PATH,./deps/llama-1b}
+  my_task: mix
+  init_from_scratch: false
+  scratch_hidden_size: 2048
+  scratch_intermediate_size: 8192
+  scratch_num_hidden_layers: 16
+  scratch_num_attention_heads: 32
+  scratch_num_key_value_heads: 8
+  scratch_max_position_embeddings: 131072
+  stage: ${TRAIN.STAGE}
+  decoding_strategy: multi_head
+  fusion_lambda: 0.333
+  max_length: 320
+  body_codebook_size: ${model.params.motion_vae.params.vae_args_body.code_num}
+  lh_codebook_size: ${model.params.motion_vae.params.vae_args_hand.code_num}
+  rh_codebook_size: ${model.params.motion_vae.params.vae_args_hand.code_num}
+  codebook_params_path: ${DATASET.CODEBOOK_PARAMS_PATH}
+  lora: false
+  lora_r: 128
+  lora_alpha: 128
+  lora_dropout: 0.05
+  ablation: ${ABLATION}

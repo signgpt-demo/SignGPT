@@ -1,0 +1,72 @@
+# Python and packaging
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments and editors
+.venv/
+venv/
+env/
+.conda/
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Local datasets, dependencies, and model weights
+/data/
+/deps/
+/checkpoints/
+/weights/
+/pretrained/
+*.ckpt
+*.pth
+*.pt
+*.bin
+*.safetensors
+*.onnx
+*.pkl
+*.pickle
+*.h5
+
+# Generated tokens and arrays
+/codebook_params/
+/motion_tokens/
+*.npy
+*.npz
+
+# Experiments, predictions, and logs
+/outputs/
+/results/
+/experiments/
+/lightning_logs/
+/wandb/
+/tensorboard/
+/logs/
+/SLC/
+/chi_results/
+*.log
+
+# Temporary and local-only files
+/.tmp/
+/tmp/
+*.tmp
+*.bak
+*.orig
+.claude/
+.env
+.env.*
+!.env.example
+
+# Generated media
+*.gif
+*.mp4
+*.avi
+*.mov

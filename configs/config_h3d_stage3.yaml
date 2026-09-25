@@ -1,0 +1,57 @@
+NAME: SignGPT_stage3_instruction
+ACCELERATOR: gpu
+NUM_NODES: 1
+DEVICE: [0]
+
+TRAIN:
+  SPLIT: train
+  STAGE: lm_instruct
+  NUM_WORKERS: 8
+  BATCH_SIZE: 16
+  END_EPOCH: 50
+  RESUME: ''
+  PRETRAINED: null
+  PRETRAINED_VAE: null
+  OPTIM:
+    target: AdamW
+    params:
+      lr: 1e-4
+      betas: [0.9, 0.99]
+      weight_decay: 0.0
+
+EVAL:
+  SPLIT: test
+  BATCH_SIZE: 16
+
+TEST:
+  CHECKPOINTS: null
+  SPLIT: test
+  BATCH_SIZE: 16
+
+DATASET:
+  target: mGPT.data.HumanML3D.HumanML3DDataModule
+  CODE_PATH: signgpt_motion_tokens
+  CODEBOOK_PARAMS_PATH: ${oc.env:SIGNGPT_CODEBOOK_PATH,./data/how2sign/codebook_params/signgpt_codebook.pt}
+
+METRIC:
+  TYPE: [TM2TMetrics]
+
+LOSS:
+  LAMBDA_CLS: 2.0
+  ABLATION:
+    RECONS_LOSS: l1_smooth
+
+model:
+  target: mGPT.models.mgpt.SignGPT
+  params:
+    condition: text
+    task: t2m
+    lm: ${lm.default}
+    motion_vae: ${vq.default}
+
+LOGGER:
+  TYPE: [tensorboard]
+  VAL_EVERY_STEPS: 10
+  WANDB:
+    params:
+      project: signgpt

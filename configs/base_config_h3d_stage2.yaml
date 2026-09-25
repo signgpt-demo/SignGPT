@@ -1,0 +1,66 @@
+NAME: Baseline_stage2_unified
+ACCELERATOR: gpu
+NUM_NODES: 1
+DEVICE: [0]
+
+TRAIN:
+  SPLIT: train
+  STAGE: lm_pretrain
+  NUM_WORKERS: 8
+  BATCH_SIZE: 16
+  END_EPOCH: 20
+  RESUME: ''
+  PRETRAINED: null
+  PRETRAINED_VAE: null
+  OPTIM:
+    target: AdamW
+    params:
+      lr: 1e-4
+      betas: [0.9, 0.99]
+      weight_decay: 0.05
+  LR_SCHEDULER:
+    target: CosineAnnealingLR
+    params:
+      T_max: 20
+      eta_min: 1e-6
+
+EVAL:
+  SPLIT: test
+  TEST_SPLIT: test
+  BATCH_SIZE: 32
+  NUM_WORKERS: 8
+
+TEST:
+  CHECKPOINTS: null
+  SPLIT: test
+  BATCH_SIZE: 32
+
+DATASET:
+  target: mGPT.data.HumanML3D.HumanML3DDataModule
+  CODE_PATH: baseline_motion_tokens
+  CODEBOOK_PARAMS_PATH: ${oc.env:BASELINE_CODEBOOK_PATH,./data/how2sign/codebook_params/baseline_codebook.pt}
+
+METRIC:
+  TYPE: [TM2TMetrics]
+
+LOSS:
+  LAMBDA_CLS: 0
+  LAMBDA_MOTION: 1.0
+  LAMBDA_TEXT: 1.0
+  ABLATION:
+    RECONS_LOSS: l1_smooth
+
+model:
+  target: mGPT.models.mgpt.SignGPT
+  params:
+    condition: text
+    task: t2m
+    lm: ${lm.base_default}
+    motion_vae: ${vq.base_default}
+
+LOGGER:
+  TYPE: [tensorboard]
+  VAL_EVERY_STEPS: 2
+  WANDB:
+    params:
+      project: signgpt
